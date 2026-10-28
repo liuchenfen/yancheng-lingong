@@ -1,0 +1,91 @@
+<view class="detail-page">
+  <view wx:if="{{loading}}" class="state-tip">
+    <view class="loading-dot"></view>
+    <text>加载中...</text>
+  </view>
+
+  <view wx:elif="{{errorTip}}" class="state-tip error">
+    <text>{{errorTip}}</text>
+    <view class="reload-btn" bindtap="onReload">重新加载</view>
+  </view>
+
+  <block wx:elif="{{item}}">
+    <view class="detail-card">
+      <text class="detail-title">{{item.content}}</text>
+
+      <view class="meta-row">
+        <text class="meta-label">类型</text>
+        <text class="meta-value">本地推广/{{item.category}}</text>
+      </view>
+
+      <view class="meta-row">
+        <text class="meta-label">区域</text>
+        <text class="meta-value">{{item.displayArea}}</text>
+      </view>
+
+      <view class="detail-desc">{{item.content}}</view>
+
+      <view class="image-grid" wx:if="{{(item.localImages.length || item.images.length)}}">
+        <image
+          wx:for="{{item.localImages.length ? item.localImages : item.images}}"
+          wx:key="*this"
+          class="detail-image"
+          src="{{item}}"
+          mode="aspectFill"
+          catchtap="previewImage"
+          data-url="{{item}}"
+        />
+      </view>
+
+      <view class="contact-row">
+        <view class="contact-info">
+          <text class="contact-label">联系人：</text>
+          <text class="contact-name">{{item.contactName}}</text>
+        </view>
+        <view class="call-mini-btn" bindtap="onPhoneTap">拨打电话</view>
+      </view>
+
+      <view class="address-row" bindtap="onAddressTap">
+        <text class="address-icon">地址</text>
+        <text class="address-text">{{item.address}}</text>
+      </view>
+
+      <view class="stats-row">
+        <view class="stat-item">
+          <text class="stat-icon">浏览</text>
+          <text class="stat-value">{{item.viewCount}}</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-icon">收藏</text>
+          <text class="stat-value">0</text>
+        </view>
+        <text class="post-time">{{item.timeText}}</text>
+      </view>
+    </view>
+
+    <view class="report-row" bindtap="onReportTap">
+      <text class="report-text">如遇无效、虚假、诈骗信息，请立即举报</text>
+      <view class="report-btn {{reporting ? 'disabled' : ''}}">
+        {{reporting ? '提交中...' : '点击举报'}}
+      </view>
+    </view>
+
+    <view class="warning-banner">
+      郑重提示：收取服装费、押金、报名费等各种费用的信息有诈骗嫌疑，请保持警惕。
+    </view>
+
+    <view class="float-actions">
+      <view class="float-btn-wrapper">
+        <button class="float-btn-share-hidden" open-type="share"></button>
+        <view class="float-btn share-btn">
+          <image class="float-icon-img" src="/images/share.svg" mode="aspectFit"/>
+          <text>分享</text>
+        </view>
+      </view>
+      <view class="float-btn {{isFavorite ? 'active' : ''}}" bindtap="onFavoriteTap">
+        <image class="float-icon-img" src="{{isFavorite ? '/images/favorite-active.svg' : '/images/favorite.svg'}}" mode="aspectFit"/>
+        <text>{{isFavorite ? '已收藏' : '收藏'}}</text>
+      </view>
+    </view>
+  </block>
+</view>

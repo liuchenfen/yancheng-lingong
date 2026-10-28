@@ -1,0 +1,30 @@
+# 依赖
+node_modules/
+
+# 环境配置与密钥（绝不提交）
+.env
+*.env
+!.env.example
+
+# 用户上传文件与日志
+雁城零工_管理员平台/server/uploads/
+*.log
+
+# 个人材料与本地临时产物
+材料/
+*.zip
+miniprogram/
+docs/
+preview-info*.json
+preview-qr.png
+write_all.py
+.superpowers/
+.workbuddy/
+雁城零工_简历项目描述.md
+我的页面UI方案预览.html
+小程序UI优化方向预览.html
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini

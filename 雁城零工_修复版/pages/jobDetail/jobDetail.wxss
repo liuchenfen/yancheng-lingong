@@ -1,0 +1,65 @@
+.page { background: #F4FAFF; min-height: 100vh; }
+.job-header-card { background: linear-gradient(160deg, #38BDF8 0%, #2563EB 100%); padding: 30rpx; color: #FFF; }
+.job-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16rpx; }
+.job-title { font-size: 40rpx; font-weight: 700; color: #FFF; }
+.collect-btn { width: 60rpx; height: 60rpx; display: flex; align-items: center; justify-content: center; }
+.collect-btn text { font-size: 40rpx; }
+.job-salary { font-size: 44rpx; font-weight: 700; color: #FFE0B2; }
+.salary-type { font-size: 26rpx; color: rgba(255,255,255,0.7); margin-left: 8rpx; }
+.job-tags { margin: 16rpx 0; }
+.tag { display: inline-block; padding: 4rpx 16rpx; border-radius: 6rpx; font-size: 22rpx; margin-right: 10rpx; }
+.tag-orange { background: rgba(255,255,255,0.2); color: #FFFFFF; border: 1rpx solid rgba(255,255,255,0.4); }
+.company-row { display: flex; align-items: center; margin-top: 16rpx; padding-top: 16rpx; border-top: 1rpx solid rgba(255,255,255,0.2); }
+.company-avatar { width: 60rpx; height: 60rpx; background: rgba(255,255,255,0.2); border-radius: 12rpx; display: flex; align-items: center; justify-content: center; margin-right: 16rpx; }
+.company-avatar text { font-size: 32rpx; }
+.company-name { display: block; font-size: 28rpx; color: #FFF; font-weight: 500; margin-bottom: 4rpx; }
+.post-time { font-size: 22rpx; color: rgba(255,255,255,0.7); }
+.card { background: #FFF; margin: 20rpx; border-radius: 16rpx; padding: 24rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05); }
+.card-title { font-size: 30rpx; font-weight: 700; color: #222; display: block; margin-bottom: 20rpx; padding-left: 10rpx; border-left: 4rpx solid #38BDF8; }
+.req-grid { display: flex; flex-wrap: wrap; }
+.req-item { width: 50%; margin-bottom: 20rpx; box-sizing: border-box; padding-right: 10rpx; display: flex; align-items: center; }
+.req-icon { font-size: 36rpx; margin-right: 12rpx; }
+.req-label { display: block; font-size: 22rpx; color: #999; margin-bottom: 4rpx; }
+.req-val { display: block; font-size: 26rpx; color: #333; font-weight: 500; }
+.location-row { display: flex; align-items: center; }
+.loc-icon { font-size: 28rpx; margin-right: 8rpx; }
+.loc-text { font-size: 28rpx; color: #444; }
+.desc-text { font-size: 28rpx; color: #555; line-height: 1.8; white-space: pre-wrap; }
+.contact-row { display: flex; align-items: center; }
+.contact-icon { font-size: 40rpx; margin-right: 16rpx; }
+.contact-name { display: block; font-size: 28rpx; color: #333; font-weight: 500; }
+.contact-phone { display: block; font-size: 26rpx; color: #999; margin-top: 4rpx; }
+.call-btn { margin-left: auto; background: #38BDF8; color: #FFF; font-size: 26rpx; padding: 12rpx 30rpx; border-radius: 30rpx; }
+.bottom-spacer { height: 160rpx; }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #FFF; padding: 20rpx 30rpx 40rpx; display: flex; box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.08); }
+.share-btn { flex: 1; text-align: center; padding: 24rpx; border: 2rpx solid #38BDF8; border-radius: 44rpx; color: #38BDF8; font-size: 30rpx; margin-right: 20rpx; }
+.apply-btn { flex: 2; text-align: center; padding: 24rpx; background: linear-gradient(135deg, #38BDF8, #2563EB); border-radius: 44rpx; color: #FFF; font-size: 30rpx; font-weight: 600; }
+.modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; }
+.modal-box { background: #FFF; border-radius: 32rpx 32rpx 0 0; padding: 40rpx 30rpx; width: 100%; box-sizing: border-box; position: absolute; bottom: 0; left: 0; right: 0; }
+.modal-title { display: block; font-size: 32rpx; font-weight: 700; color: #222; text-align: center; margin-bottom: 30rpx; }
+.form-item { display: flex; align-items: center; padding: 20rpx 0; border-bottom: 1rpx solid #F0F0F0; }
+.form-label { font-size: 28rpx; color: #333; width: 120rpx; }
+.form-input { flex: 1; font-size: 28rpx; color: #333; }
+.modal-error { display: block; margin: -8rpx 0 12rpx 120rpx; color: #EF4444; font-size: 23rpx; line-height: 32rpx; }
+.modal-btns { display: flex; margin-top: 30rpx; }
+.modal-cancel { flex: 1; text-align: center; padding: 24rpx; border: 2rpx solid #DDD; border-radius: 44rpx; color: #999; font-size: 28rpx; margin-right: 20rpx; }
+.modal-confirm { flex: 2; text-align: center; padding: 24rpx; background: linear-gradient(135deg, #38BDF8, #2563EB); border-radius: 44rpx; color: #FFF; font-size: 28rpx; font-weight: 600; }
+.modal-confirm.disabled { opacity: 0.64; }
+
+/* 性别选择 */
+.gender-group { display: flex; gap: 20rpx; }
+.gender-btn {
+  padding: 12rpx 40rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  color: #666;
+  border: 2rpx solid #DDD;
+  background: #F8F8F8;
+}
+.gender-btn.gender-active {
+  color: #2563EB;
+  border-color: #38BDF8;
+  background: #EFF9FF;
+  font-weight: 600;
+}
+

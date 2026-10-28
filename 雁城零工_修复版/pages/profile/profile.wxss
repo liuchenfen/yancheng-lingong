@@ -1,0 +1,473 @@
+.page {
+  min-height: 100vh;
+  padding: 0 28rpx 44rpx;
+  background: #F3F6F9;
+  box-sizing: border-box;
+}
+
+.workbench-header {
+  margin: 0 -28rpx;
+  padding: 44rpx 28rpx 34rpx;
+  background: #4A90E2;
+  border-radius: 0 0 40rpx 40rpx;
+}
+
+.login-card,
+.stats-strip,
+.menu-group {
+  background: #FFFFFF;
+  border: 1rpx solid #E1E8EF;
+  border-radius: 16rpx;
+  box-shadow: 0 10rpx 26rpx rgba(23, 32, 51, 0.07);
+}
+
+.login-card {
+  padding: 28rpx;
+}
+
+.identity-row,
+.user-card {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-mark,
+.user-avatar {
+  flex-shrink: 0;
+  width: 108rpx;
+  height: 108rpx;
+  margin-right: 22rpx;
+  border-radius: 54rpx;
+}
+
+.avatar-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #EDF5FF;
+  color: #4A90E2;
+  font-size: 44rpx;
+  font-weight: 800;
+}
+
+.avatar-mark text {
+  line-height: 1;
+}
+
+.user-avatar {
+  display: block;
+}
+
+.identity-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.identity-title {
+  display: block;
+  color: #172033;
+  font-size: 34rpx;
+  font-weight: 800;
+  line-height: 44rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.identity-sub {
+  display: block;
+  margin-top: 6rpx;
+  color: #6B7787;
+  font-size: 24rpx;
+  line-height: 34rpx;
+}
+
+.login-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 26rpx;
+}
+
+.login-action {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 0;
+  padding: 0 10rpx;
+  border-radius: 18rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.login-action::after {
+  border: none;
+}
+
+.primary-action {
+  background: #4A90E2;
+  color: #FFFFFF;
+}
+
+.btn-disabled {
+  background: #B0C4DE !important;
+  color: #E8EEF5 !important;
+}
+
+.login-hint {
+  margin-top: 12rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #FF6B35;
+  line-height: 34rpx;
+}
+
+.secondary-action {
+  background: #EDF5FF;
+  color: #4A90E2;
+  border: 1rpx solid #DDEBFF;
+}
+
+.logout-chip {
+  flex-shrink: 0;
+  padding: 12rpx 20rpx;
+  border-radius: 28rpx;
+  background: #EDF5FF;
+  color: #4A90E2;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.stats-strip {
+  display: flex;
+  margin-top: 22rpx;
+  padding: 22rpx 0;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-num {
+  color: #172033;
+  font-size: 38rpx;
+  font-weight: 800;
+  line-height: 46rpx;
+}
+
+.stat-label {
+  margin-top: 6rpx;
+  color: #7B8796;
+  font-size: 23rpx;
+}
+
+.section-heading {
+  margin: 30rpx 4rpx 16rpx;
+  color: #172033;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.menu-group {
+  overflow: hidden;
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  min-height: 104rpx;
+  padding: 18rpx 24rpx;
+  border-bottom: 1rpx solid #EDF1F5;
+}
+
+.menu-row:last-child {
+  border-bottom: none;
+}
+
+.menu-icon {
+  flex-shrink: 0;
+  width: 58rpx;
+  height: 58rpx;
+  margin-right: 18rpx;
+  border-radius: 18rpx;
+  background: #EDF5FF;
+  color: #4A90E2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.menu-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-title {
+  display: block;
+  color: #172033;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 36rpx;
+}
+
+.menu-desc {
+  display: block;
+  margin-top: 6rpx;
+  color: #8A95A4;
+  font-size: 22rpx;
+  line-height: 30rpx;
+}
+
+.menu-badge {
+  min-width: 34rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  margin-right: 14rpx;
+  padding: 0 8rpx;
+  border-radius: 18rpx;
+  background: #FF6B35;
+  color: #FFFFFF;
+  font-size: 20rpx;
+  text-align: center;
+}
+
+.menu-arrow {
+  color: #A4AFBD;
+  font-size: 36rpx;
+  font-weight: 800;
+}
+
+.footer {
+  padding: 36rpx 0 0;
+  text-align: center;
+}
+
+.footer text {
+  display: block;
+  margin-bottom: 8rpx;
+  color: #9AA4B2;
+  font-size: 22rpx;
+}
+
+/* ---- 微信头像昵称选择区 ---- */
+.profile-picker-row,
+.wx-profile-row {
+  display: flex;
+  align-items: center;
+  margin: 22rpx 0 10rpx;
+  padding: 18rpx 20rpx;
+  background: #F5F8FF;
+  border-radius: 16rpx;
+  border: 1rpx dashed #BBD3F9;
+  gap: 20rpx;
+}
+
+/* 头像选择按钮 */
+.avatar-picker-btn {
+  flex-shrink: 0;
+  width: 96rpx;
+  height: 96rpx;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-picker-btn::after {
+  border: none;
+}
+
+.avatar-preview {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  display: block;
+}
+
+.avatar-placeholder {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: #DAE8FF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-placeholder-icon {
+  font-size: 36rpx;
+  color: #4A90E2;
+  line-height: 1;
+}
+
+.avatar-placeholder-txt {
+  font-size: 16rpx;
+  color: #7BA3E0;
+  margin-top: 2rpx;
+}
+
+/* 昵称输入框 */
+.nickname-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.nickname-input {
+  width: 100%;
+  height: 68rpx;
+  line-height: 68rpx;
+  font-size: 28rpx;
+  color: #172033;
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  border: 1rpx solid #DDEAFF;
+  padding: 0 18rpx;
+  box-sizing: border-box;
+}
+
+.nickname-placeholder {
+  color: #A4AFBD;
+  font-size: 26rpx;
+}
+
+/* ===== 客服帮助弹窗 ===== */
+.kefu-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kefu-modal {
+  width: 580rpx;
+  background: #ffffff;
+  border-radius: 28rpx;
+  overflow: hidden;
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.18);
+}
+
+.kefu-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 40rpx 20rpx;
+  position: relative;
+}
+
+.kefu-modal-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #172033;
+  letter-spacing: 2rpx;
+}
+
+.kefu-modal-close {
+  position: absolute;
+  right: 36rpx;
+  top: 32rpx;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  color: #9AA4B2;
+  border-radius: 50%;
+  background: #F3F6F9;
+  line-height: 1;
+}
+
+.kefu-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 40rpx 24rpx;
+}
+
+.kefu-modal-tip {
+  font-size: 26rpx;
+  color: #5A6475;
+  margin-bottom: 28rpx;
+  text-align: center;
+}
+
+.kefu-qrcode {
+  width: 380rpx;
+  height: 380rpx;
+  border-radius: 16rpx;
+  border: 1rpx solid #E8EFF8;
+  background: #f8fafd;
+}
+
+.kefu-divider {
+  width: 100%;
+  height: 1rpx;
+  background: #EDF1F7;
+  margin: 28rpx 0 20rpx;
+}
+
+.kefu-phone-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.kefu-phone-label {
+  font-size: 26rpx;
+  color: #5A6475;
+}
+
+.kefu-phone-num {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1565C0;
+  letter-spacing: 1rpx;
+}
+
+.kefu-tip-small {
+  font-size: 22rpx;
+  color: #B0BAC9;
+  margin-top: 6rpx;
+  text-align: center;
+}
+
+.kefu-modal-footer {
+  display: flex;
+  border-top: 1rpx solid #EDF1F7;
+  margin-top: 8rpx;
+}
+
+.kefu-btn-call {
+  flex: 1;
+  text-align: center;
+  padding: 32rpx 0;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1A73E8;
+  border-right: 1rpx solid #EDF1F7;
+}
+
+.kefu-btn-close {
+  flex: 1;
+  text-align: center;
+  padding: 32rpx 0;
+  font-size: 30rpx;
+  color: #5A6475;
+}

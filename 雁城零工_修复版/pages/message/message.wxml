@@ -1,0 +1,73 @@
+<view class="page">
+  <view class="notice-card" bindtap="onToggleNotices">
+    <view class="section-head">
+      <view class="section-head-left">
+        <text class="section-title">系统通知</text>
+        <view wx:if="{{unreadCount > 0}}" class="unread-badge">{{unreadCount > 99 ? '99+' : unreadCount}}</view>
+      </view>
+      <text class="section-arrow">{{noticeFolded ? '展开 ▼' : '收起 ▲'}}</text>
+    </view>
+    <!-- 折叠状态：仅显示最新一条未读通知内容 -->
+    <view wx:if="{{noticeFolded && notifications.length > 0}}" class="notice-teaser">
+      <view class="notice-dot"></view>
+      <text class="notice-teaser-text">{{notifications[0].title}}：{{notifications[0].content}}</text>
+    </view>
+    <!-- 展开状态：显示全部通知列表 -->
+    <view wx:if="{{!noticeFolded}}" class="notice-list">
+      <view wx:for="{{notifications}}" wx:key="id" class="notice-item {{item.isRead ? 'notice-read' : 'notice-unread'}}">
+        <view class="notice-dot"></view>
+        <view class="notice-copy">
+          <text class="notice-title">{{item.title}}</text>
+          <text class="notice-content">{{item.content}}</text>
+          <text class="notice-time">{{item.createdAt}}</text>
+        </view>
+      </view>
+      <view wx:if="{{notifications.length === 0}}" class="notice-empty">暂无系统通知</view>
+    </view>
+  </view>
+
+  <view class="service-card">
+    <view class="service-head">
+      <view class="service-avatar">客</view>
+      <view class="service-copy">
+        <text class="service-title">联系客服推荐工作</text>
+        <text class="service-sub">直接输入想找的岗位、区域、时间，客服会在后台回复</text>
+      </view>
+    </view>
+
+    <view class="quick-row">
+      <view wx:for="{{quickQuestions}}" wx:key="*this" class="quick-chip" bindtap="onQuickReply" data-text="{{item}}">{{item}}</view>
+    </view>
+
+    <scroll-view class="chat-list" scroll-y scroll-top="{{scrollTop}}" scroll-with-animation>
+      <view class="chat-list-inner">
+        <view wx:if="{{loading}}" class="chat-loading">正在加载消息...</view>
+        <view wx:for="{{chatMessages}}" wx:key="id" class="chat-row {{item.senderType === 'user' ? 'from-user' : 'from-admin'}}">
+          <view class="chat-bubble">
+            <text class="chat-content">{{item.content}}</text>
+            <text class="chat-time">{{item.createdAt}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 未登录引导条 -->
+    <view wx:if="{{!isLogin}}" class="login-guide-bar" bindtap="onFocusInput">
+      <text class="login-guide-icon">🔒</text>
+      <text class="login-guide-text">登录后才能发送消息</text>
+      <text class="login-guide-action">去登录 ›</text>
+    </view>
+
+    <view class="input-bar">
+      <input
+        class="message-input {{!isLogin ? 'input-disabled' : ''}}"
+        value="{{inputValue}}"
+        bindinput="onMessageInput"
+        confirm-type="send"
+        bindconfirm="onSendMessage"
+        placeholder="{{isLogin ? '输入文字咨询客服' : '请先登录后再发送消息'}}"
+      />
+      <button class="send-btn {{!isLogin ? 'send-btn-disabled' : ''}}" loading="{{sending}}" bindtap="onSendMessage">发送</button>
+    </view>
+  </view>
+</view>

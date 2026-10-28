@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "便民信息查询",
+  "navigationBarBackgroundColor": "#38BDF8",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#F5FAFF",
+  "enablePullDownRefresh": true
+}

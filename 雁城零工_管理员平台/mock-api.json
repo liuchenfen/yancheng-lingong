@@ -1,0 +1,30 @@
+{
+  "database": {
+    "type": "MySQL",
+    "schemaFile": "sql/yancheng_lingong.sql",
+    "databaseName": "yancheng_lingong"
+  },
+  "adminAuth": {
+    "loginEndpoint": "POST /api/admin/login",
+    "logoutEndpoint": "POST /api/admin/logout",
+    "defaultUsername": "admin",
+    "defaultPassword": "admin123"
+  },
+  "jobs": {
+    "listEndpoint": "GET /api/jobs",
+    "publishEndpoint": "POST /api/jobs",
+    "wechatPublishEndpoint": "POST /api/wechat/jobs",
+    "reviewEndpoint": "PATCH /api/admin/jobs/{id}/review",
+    "statusValues": ["pending", "published", "rejected", "offline"]
+  },
+  "users": {
+    "wechatLoginEndpoint": "POST /api/auth/wechat-login",
+    "adminListEndpoint": "GET /api/admin/users"
+  },
+  "applications": {
+    "createEndpoint": "POST /api/applications",
+    "adminListEndpoint": "GET /api/admin/applications",
+    "statusEndpoint": "PATCH /api/admin/applications/{id}/status",
+    "statusValues": ["new", "contacted", "hired", "closed"]
+  }
+}

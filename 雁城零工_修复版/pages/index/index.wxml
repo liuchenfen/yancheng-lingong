@@ -1,0 +1,159 @@
+<view class="container">
+  <view class="header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="header-top">
+        <view class="city-btn" bindtap="onChangeCity">
+          <text class="city-name">{{city}}</text>
+        </view>
+        <text class="header-slogan">本地零工 轻松日结</text>
+      </view>
+      <view class="search-box">
+        <text class="search-icon">搜</text>
+        <input class="search-input" placeholder="搜索职位、公司名称" placeholder-class="search-placeholder" value="{{searchValue}}" bindinput="onSearchInput" bindconfirm="onSearch" confirm-type="search" />
+        <view class="search-btn" bindtap="onSearch">搜索</view>
+      </view>
+      <view class="hot-tags">
+        <text class="hot-label">热门：</text>
+        <text class="hot-tag" bindtap="onSearch" data-keyword="搬运">搬运</text>
+        <text class="hot-tag" bindtap="onSearch" data-keyword="服务员">服务员</text>
+        <text class="hot-tag" bindtap="onSearch" data-keyword="促销">促销</text>
+        <text class="hot-tag" bindtap="onSearch" data-keyword="日结">日结</text>
+      </view>
+    </view>
+  </view>
+  <view class="banner-wrap">
+    <swiper class="banner-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="3000" circular="{{true}}" indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#FFFFFF">
+      <swiper-item wx:for="{{bannerList}}" wx:key="id">
+        <view class="banner-item" style="background:{{item.bgColor}}">
+          <view class="banner-text">
+            <text class="banner-title">{{item.title}}</text>
+            <text class="banner-subtitle">{{item.subtitle}}</text>
+          </view>
+          <view class="banner-deco">
+            <text class="banner-emoji">招</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+  <view class="section card">
+    <view class="section-header">
+      <text class="section-title">职位分类</text>
+      <text class="section-more" bindtap="onCategoryTap" data-name="">全部 ></text>
+    </view>
+    <view class="category-grid">
+      <view class="category-item" wx:for="{{categories}}" wx:key="id" wx:for-index="categoryIndex" bindtap="onCategoryTap" data-name="{{item.name}}">
+        <view wx:if="{{categoryIndex === 0}}" class="category-icon-wrap tone-sky">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-cargo">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <view wx:elif="{{categoryIndex === 1}}" class="category-icon-wrap tone-cyan">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-food">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <view wx:elif="{{categoryIndex === 2}}" class="category-icon-wrap tone-mint">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-shop">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <view wx:elif="{{categoryIndex === 3}}" class="category-icon-wrap tone-indigo">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-clean">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <view wx:elif="{{categoryIndex === 4}}" class="category-icon-wrap tone-green">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-drive">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <view wx:elif="{{categoryIndex === 5}}" class="category-icon-wrap tone-cyan">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-build">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <view wx:elif="{{categoryIndex === 6}}" class="category-icon-wrap tone-mint">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-homecare">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <view wx:else class="category-icon-wrap tone-gray">
+          <view class="category-halo"></view>
+          <view class="category-graphic icon-more">
+            <view class="icon-part part-a"></view>
+            <view class="icon-part part-b"></view>
+            <view class="icon-part part-c"></view>
+          </view>
+        </view>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="section recommend-section">
+    <view class="section-header-outer">
+      <view class="section-header-line"></view>
+      <text class="section-title-main">推荐岗位</text>
+      <view class="section-header-line"></view>
+    </view>
+    <view class="recommend-viewport" wx:if="{{scrollJobs.length > 0}}">
+      <view class="recommend-track {{scrollAnimPlaying ? 'anim-playing' : 'anim-paused'}}" style="animation-duration:{{scrollDuration}}s">
+        <view class="job-card card" wx:for="{{scrollJobs}}" wx:key="uid" bindtap="onJobTap" data-id="{{item.id}}">
+          <view class="job-header">
+            <view class="job-info">
+              <view class="job-title-row">
+                <text class="job-title">{{item.title}}</text>
+                <view wx:if="{{item.hot}}" class="hot-badge">热</view>
+              </view>
+              <text class="job-company">{{item.company}}</text>
+            </view>
+            <view class="job-salary-wrap">
+              <text class="job-salary">{{item.salary}}</text>
+            </view>
+          </view>
+          <view class="job-tags">
+            <text class="tag tag-orange" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+          </view>
+          <view class="job-footer">
+            <text class="job-location">@ {{item.displayLocation}}</text>
+            <text class="job-exp">{{item.experience}}</text>
+            <text class="job-time">{{item.time}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty-recommend">
+      <text class="empty-text">暂无推荐岗位</text>
+    </view>
+  </view>
+  <view class="page-spacer-sm"></view>
+</view>
+
+<!-- 便民信息查询：固定在页面底部，放在 container 外避免干扰点击事件 -->
+<view class="convenience-section" bindtap="onConvenienceTap">
+  <view class="convenience-btn">
+    <text class="convenience-text">便民信息查询</text>
+  </view>
+</view>

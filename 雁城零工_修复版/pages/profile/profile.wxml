@@ -1,0 +1,112 @@
+<view class="page">
+  <view class="workbench-header">
+    <view wx:if="{{!isLogin}}" class="login-card">
+      <view class="identity-row">
+        <view class="avatar-mark"><text>微</text></view>
+        <view class="identity-copy">
+          <text class="identity-title">登录雁城零工</text>
+          <text class="identity-sub">用于投递、收藏、发布和联系客服</text>
+        </view>
+      </view>
+
+      <!-- 头像选择器（点击弹出微信头像选择） -->
+      <view class="profile-picker-row">
+        <button class="avatar-picker-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          <image wx:if="{{tempAvatarUrl}}" class="avatar-preview" src="{{tempAvatarUrl}}" mode="aspectFill"/>
+            <view wx:else class="avatar-placeholder">
+              <text class="avatar-placeholder-icon">+</text>
+              <text class="avatar-placeholder-txt">点选头像</text>
+            </view>
+        </button>
+        <!-- 昵称输入（聚焦时微信自动填充） -->
+        <view class="nickname-wrap">
+          <input class="nickname-input"
+            type="nickname"
+            placeholder="点击填写昵称"
+            placeholder-class="nick-placeholder"
+            value="{{tempNickName}}"
+            bindinput="onNicknameInput"
+            bindblur="onNicknameBlur"
+          />
+        </view>
+      </view>
+
+      <view class="login-hint">
+        <text wx:if="{{!tempAvatarUrl && !tempNickName}}">请选择头像并填写昵称后登录</text>
+        <text wx:elif="{{!tempAvatarUrl}}">请选择头像后登录</text>
+        <text wx:elif="{{!tempNickName}}">请填写昵称后登录</text>
+      </view>
+
+      <view class="login-actions">
+        <button class="login-action primary-action {{(!tempAvatarUrl || !tempNickName) ? 'btn-disabled' : ''}}" loading="{{loginLoading}}" bindtap="onWechatLogin">微信一键登录</button>
+      </view>
+    </view>
+
+    <view wx:else class="login-card user-card">
+      <image wx:if="{{userInfo.avatarUrl}}" class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view wx:if="{{!userInfo.avatarUrl}}" class="avatar-mark"><text>微</text></view>
+      <view class="identity-copy">
+        <text class="identity-title">{{userInfo.nickName}}</text>
+        <text class="identity-sub">已登录 · 零工求职者</text>
+      </view>
+      <view class="logout-chip" bindtap="onLogout">退出</view>
+    </view>
+  </view>
+
+  <view class="stats-strip">
+    <view class="stat-item">
+      <text class="stat-num">{{stats.applied}}</text>
+      <text class="stat-label">已投递</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.collected}}</text>
+      <text class="stat-label">收藏数</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.viewed}}</text>
+      <text class="stat-label">浏览量</text>
+    </view>
+  </view>
+
+  <view class="section-heading">常用功能</view>
+  <view class="menu-group">
+    <view class="menu-row" wx:for="{{menus}}" wx:key="id" bindtap="onMenuTap" data-id="{{item.id}}" data-title="{{item.title}}">
+      <view class="menu-icon">{{item.icon}}</view>
+      <view class="menu-copy">
+        <text class="menu-title">{{item.title}}</text>
+        <text class="menu-desc">{{item.desc}}</text>
+      </view>
+      <view wx:if="{{item.badge > 0}}" class="menu-badge">{{item.badge}}</view>
+      <text class="menu-arrow">></text>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text>雁城零工 v1.0.0</text>
+    <text>本地零工服务平台</text>
+  </view>
+</view>
+
+<!-- 客服帮助自定义弹窗 -->
+<view class="kefu-mask" wx:if="{{showKefuModal}}" bindtap="onCloseKefuModal">
+  <view class="kefu-modal" catchtap="catchtap">
+    <view class="kefu-modal-header">
+      <text class="kefu-modal-title">客服帮助</text>
+      <view class="kefu-modal-close" bindtap="onCloseKefuModal">×</view>
+    </view>
+    <view class="kefu-modal-body">
+      <text class="kefu-modal-tip">扫描下方二维码添加客服微信</text>
+      <image class="kefu-qrcode" src="/images/kefu_qrcode.png" mode="aspectFit" show-menu-by-longpress="{{true}}"></image>
+      <view class="kefu-divider"></view>
+      <view class="kefu-phone-row">
+        <text class="kefu-phone-label">客服电话</text>
+        <text class="kefu-phone-num" bindtap="onCallKefu">15773452907</text>
+      </view>
+      <text class="kefu-tip-small">长按二维码可保存或识别</text>
+    </view>
+    <view class="kefu-modal-footer">
+      <view class="kefu-btn-call" bindtap="onCallKefu">拨打客服电话</view>
+      <view class="kefu-btn-close" bindtap="onCloseKefuModal">关闭</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,110 @@
+<view class="page">
+  <view class="tip-bar">
+    <text class="tip-icon">i</text>
+    <text class="tip-text">请填写真实、可靠的便民信息，提交后会展示在便民信息列表中</text>
+  </view>
+
+  <view class="form-card card">
+    <view class="form-row">
+      <text class="form-label required">信息分类</text>
+      <picker mode="selector" range="{{categories}}" bindchange="onCategoryChange">
+        <view class="picker-view">
+          <text class="{{category ? 'picker-val' : 'picker-placeholder'}}">{{category || '请选择'}}</text>
+          <text class="picker-arrow">></text>
+        </view>
+      </picker>
+    </view>
+    <text wx:if="{{errors.category}}" class="form-error">{{errors.category}}</text>
+
+    <view class="form-row">
+      <text class="form-label required">所属区域</text>
+      <picker mode="selector" range="{{areas}}" bindchange="onAreaChange">
+        <view class="picker-view">
+          <text class="{{area ? 'picker-val' : 'picker-placeholder'}}">{{area || '请选择'}}</text>
+          <text class="picker-arrow">></text>
+        </view>
+      </picker>
+    </view>
+    <text wx:if="{{errors.area}}" class="form-error">{{errors.area}}</text>
+
+    <view class="textarea-row">
+      <text class="form-label required">内容详情</text>
+      <textarea
+        class="desc-textarea"
+        placeholder="请输入详细内容"
+        data-field="content"
+        bindinput="onInput"
+        value="{{content}}"
+        maxlength="500"
+      />
+    </view>
+    <text wx:if="{{errors.content}}" class="form-error textarea-error">{{errors.content}}</text>
+
+    <view class="uploader-row">
+      <text class="form-label">上传图片</text>
+      <view class="image-list">
+        <view class="image-item" wx:for="{{images}}" wx:key="*this">
+          <image class="preview-img" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-url="{{item}}" />
+          <view class="delete-btn" bindtap="deleteImage" data-index="{{index}}">×</view>
+        </view>
+        <view wx:if="{{images.length < 9}}" class="upload-btn" bindtap="chooseImage">
+          <text class="upload-plus">+</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-card card">
+    <view class="form-row">
+      <text class="form-label required">联系人</text>
+      <input
+        class="form-input"
+        placeholder="请填写联系人姓名"
+        data-field="contactName"
+        bindinput="onInput"
+        value="{{contactName}}"
+      />
+    </view>
+    <text wx:if="{{errors.contactName}}" class="form-error">{{errors.contactName}}</text>
+
+    <view class="form-row">
+      <text class="form-label required">联系电话</text>
+      <input
+        class="form-input"
+        type="number"
+        placeholder="请填写联系电话"
+        data-field="contactPhone"
+        bindinput="onInput"
+        value="{{contactPhone}}"
+        maxlength="11"
+      />
+    </view>
+    <text wx:if="{{errors.contactPhone}}" class="form-error">{{errors.contactPhone}}</text>
+
+    <view class="form-row">
+      <text class="form-label required">详细地址</text>
+      <input
+        class="form-input"
+        placeholder="可手动输入详细地址"
+        data-field="address"
+        bindinput="onInput"
+        value="{{address}}"
+      />
+    </view>
+    <view class="location-helper-row no-border">
+      <text class="location-tip">也可使用地图自动填写</text>
+      <view class="location-trigger" bindtap="chooseLocation">
+        <text class="location-trigger-text">定位选择</text>
+        <text class="location-icon">📍</text>
+      </view>
+    </view>
+    <text wx:if="{{errors.address}}" class="form-error">{{errors.address}}</text>
+  </view>
+
+  <view class="submit-spacer"></view>
+  <view class="submit-bar">
+    <view class="submit-btn {{submitting ? 'submitting submit-disabled' : ''}}" bindtap="onSubmit">
+      <text>{{submitting ? '发布中...' : '确认发布'}}</text>
+    </view>
+  </view>
+</view>

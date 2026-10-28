@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/jobs/jobs",
+    "pages/publish/publish",
+    "pages/message/message",
+    "pages/profile/profile",
+    "pages/jobDetail/jobDetail",
+    "pages/convenience/convenience",
+    "pages/convenienceDetail/convenienceDetail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#38BDF8",
+    "navigationBarTitleText": "雁城零工",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F4FAFF"
+  },
+  "tabBar": {
+    "color": "#64748B",
+    "selectedColor": "#2563EB",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab_home.png",
+        "selectedIconPath": "images/tab_home_active.png"
+      },
+      {
+        "pagePath": "pages/jobs/jobs",
+        "text": "找零工",
+        "iconPath": "images/tab_jobs.png",
+        "selectedIconPath": "images/tab_jobs_active.png"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "text": "发布",
+        "iconPath": "images/tab_publish.png",
+        "selectedIconPath": "images/tab_publish_active.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "images/tab_message.png",
+        "selectedIconPath": "images/tab_message_active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab_profile.png",
+        "selectedIconPath": "images/tab_profile_active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于选择发布信息的详细地址"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation"
+  ],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

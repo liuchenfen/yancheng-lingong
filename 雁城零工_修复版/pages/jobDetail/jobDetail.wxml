@@ -1,0 +1,92 @@
+<view class="page" wx:if="{{job}}">
+  <view class="job-header-card">
+    <view class="job-title-row">
+      <text class="job-title">{{job.title}}</text>
+      <view class="collect-btn" bindtap="onCollect">
+        <text>{{isCollected ? '⭐️' : '☆'}}</text>
+      </view>
+    </view>
+    <text class="job-salary">{{job.salary}}</text>
+    <text class="salary-type">· {{job.salaryType}}</text>
+    <view class="job-tags">
+      <text class="tag tag-orange" wx:for="{{job.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+    </view>
+    <view class="company-row">
+        <view class="company-avatar"><text>企</text></view>
+      <view class="company-info">
+        <text class="company-name">{{job.company}}</text>
+        <text class="post-time">{{job.postedTime}}发布 · {{job.views}}人看过</text>
+      </view>
+    </view>
+  </view>
+  <view class="card section-card">
+    <text class="card-title">岗位要求</text>
+    <view class="req-grid">
+      <view class="req-item"><text class="req-icon">经</text><view class="req-text"><text class="req-label">工作经验</text><text class="req-val">{{job.experience}}</text></view></view>
+      <view class="req-item"><text class="req-icon">学</text><view class="req-text"><text class="req-label">学历要求</text><text class="req-val">{{job.education}}</text></view></view>
+      <view class="req-item"><text class="req-icon">时</text><view class="req-text"><text class="req-label">工作时间</text><text class="req-val">{{job.workTime}}</text></view></view>
+      <view class="req-item"><text class="req-icon">人</text><view class="req-text"><text class="req-label">招聘人数</text><text class="req-val">{{job.headcount}}人</text></view></view>
+    </view>
+  </view>
+  <view class="card section-card">
+    <text class="card-title">工作地点</text>
+    <view class="location-row">
+      <text class="loc-icon">地址:</text>
+      <text class="loc-text">{{job.location}}</text>
+    </view>
+  </view>
+  <view class="card section-card">
+    <text class="card-title">职位描述</text>
+    <text class="desc-text">{{job.description}}</text>
+  </view>
+  <view class="card section-card">
+    <text class="card-title">联系方式</text>
+    <view class="contact-row" bindtap="onCallPhone">
+      <text class="contact-icon">电</text>
+      <view class="contact-info">
+        <text class="contact-name">{{job.contact}}</text>
+        <text class="contact-phone">{{job.phone}}</text>
+      </view>
+      <text class="call-btn">拨打</text>
+    </view>
+  </view>
+  <view class="bottom-spacer"></view>
+  <view class="bottom-bar">
+    <view class="share-btn" bindtap="onShare"><text>分享</text></view>
+    <view class="apply-btn" bindtap="onApply"><text>{{isApplied ? '已投递' : '立即申请'}}</text></view>
+  </view>
+  <view class="modal-mask" wx:if="{{showApplyModal}}" bindtap="onApplyCancel">
+    <view class="modal-box" catchtap="onModalTap">
+      <text class="modal-title">填写申请信息</text>
+      <view class="modal-form">
+        <view class="form-item">
+          <text class="form-label">姓名</text>
+          <input class="form-input" placeholder="请输入您的姓名" bindinput="onApplyNameInput" value="{{applyName}}" />
+        </view>
+        <text wx:if="{{applyErrors.name}}" class="modal-error">{{applyErrors.name}}</text>
+        <view class="form-item">
+          <text class="form-label">手机号</text>
+          <input class="form-input" type="number" placeholder="请输入联系电话" bindinput="onApplyPhoneInput" value="{{applyPhone}}" maxlength="11" />
+        </view>
+        <text wx:if="{{applyErrors.phone}}" class="modal-error">{{applyErrors.phone}}</text>
+        <view class="form-item">
+          <text class="form-label">性别</text>
+          <view class="gender-group">
+            <view class="gender-btn {{applyGender === '男' ? 'gender-active' : ''}}" bindtap="onApplyGender" data-value="男">男</view>
+            <view class="gender-btn {{applyGender === '女' ? 'gender-active' : ''}}" bindtap="onApplyGender" data-value="女">女</view>
+          </view>
+        </view>
+        <text wx:if="{{applyErrors.gender}}" class="modal-error">{{applyErrors.gender}}</text>
+        <view class="form-item">
+          <text class="form-label">年龄</text>
+          <input class="form-input" type="number" placeholder="请输入您的年龄" bindinput="onApplyAgeInput" value="{{applyAge}}" maxlength="3" />
+        </view>
+        <text wx:if="{{applyErrors.age}}" class="modal-error">{{applyErrors.age}}</text>
+      </view>
+      <view class="modal-btns">
+        <view class="modal-cancel" bindtap="onApplyCancel">取消</view>
+        <view class="modal-confirm {{applySubmitting ? 'disabled' : ''}}" bindtap="onApplyConfirm">{{applySubmitting ? '提交中...' : '确认投递'}}</view>
+      </view>
+    </view>
+  </view>
+</view>

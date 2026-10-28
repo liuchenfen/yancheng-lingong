@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>雁城零工管理员平台</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <section class="login-screen" id="loginScreen">
+    <form class="login-card" id="loginForm">
+      <div class="login-brand">
+        <div class="brand-mark">雁</div>
+        <div>
+          <h1>雁城零工</h1>
+          <p>管理员登录</p>
+        </div>
+      </div>
+      <label>用户名<input name="username" required autocomplete="username" placeholder="请输入用户名"></label>
+      <label>密码<input name="password" required type="password" autocomplete="current-password" placeholder="请输入密码"></label>
+      <button class="primary-btn login-submit" type="submit">登录</button>
+    </form>
+  </section>
+
+  <div class="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">雁</div>
+        <div>
+          <div class="brand-name">雁城零工</div>
+          <div class="brand-sub">管理员平台</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="管理菜单">
+        <button class="nav-item active" data-view="overview">工作台</button>
+        <button class="nav-item" data-view="jobs">岗位管理</button>
+        <button class="nav-item" data-view="publish">岗位发布</button>
+        <button class="nav-item" data-view="reviews">岗位审核</button>
+        <button class="nav-item" data-view="convenience">便民信息管理</button>
+        <button class="nav-item" data-view="users">用户信息</button>
+        <button class="nav-item" data-view="applications">投递记录</button>
+        <button class="nav-item" data-view="messages">客服消息</button>
+        <button class="nav-item" data-view="interfaces">小程序接口</button>
+      </nav>
+      <div class="side-note">
+        <span>当前模式</span>
+        <strong>MySQL 数据库</strong>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="viewTitle">工作台</h1>
+          <p id="viewDesc">查看岗位、用户、审核和投递整体情况。</p>
+        </div>
+        <div class="top-actions">
+          <span class="admin-chip" id="adminName">admin</span>
+          <button class="ghost-btn" id="exportBtn">导出数据</button>
+          <button class="primary-btn" id="openJobModal">发布岗位</button>
+          <button class="ghost-btn" id="logoutBtn">退出登录</button>
+        </div>
+      </header>
+
+      <section class="view active" id="overview">
+        <div class="metric-grid">
+          <div class="metric-card">
+            <span>岗位总数</span>
+            <strong id="metricJobs">0</strong>
+            <em>包含待审核岗位</em>
+          </div>
+          <div class="metric-card">
+            <span>待审核</span>
+            <strong id="metricPending">0</strong>
+            <em>需要管理员处理</em>
+          </div>
+          <div class="metric-card">
+            <span>用户数</span>
+            <strong id="metricUsers">0</strong>
+            <em>微信登录用户</em>
+          </div>
+          <div class="metric-card">
+            <span>投递数</span>
+            <strong id="metricApplications">0</strong>
+            <em>岗位申请记录</em>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>待处理岗位</h2>
+              <button class="link-btn" data-jump="reviews">查看审核</button>
+            </div>
+            <div id="pendingPreview" class="stack-list"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-head">
+              <h2>最新投递</h2>
+              <button class="link-btn" data-jump="applications">查看投递</button>
+            </div>
+            <div id="applicationPreview" class="stack-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="jobs">
+        <div class="toolbar">
+          <input id="jobSearch" class="search-input" placeholder="搜索岗位、公司、地点">
+          <select id="jobStatusFilter" aria-label="岗位状态筛选">
+            <option value="all">全部状态</option>
+            <option value="published">已发布</option>
+            <option value="pending">待审核</option>
+            <option value="rejected">已驳回</option>
+            <option value="offline">已下线</option>
+          </select>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>岗位</th>
+                <th>公司/联系人</th>
+                <th>薪资</th>
+                <th>区域</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="jobsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="publish">
+        <div class="panel publish-card">
+          <div class="section-tip">管理员在此直接发布岗位，保存后状态为“已发布”，小程序端岗位列表会立即展示。</div>
+          <form id="publishForm">
+            <div class="form-grid">
+              <label>职位名称<input name="title" required placeholder="例如：展会协助"></label>
+              <label>职位类型<select name="category" required></select></label>
+              <label>薪资待遇<input name="salary" required placeholder="180-220元/天"></label>
+              <label>结算方式<select name="salaryType" required></select></label>
+              <label>招聘人数<input name="headcount" type="number" min="1" required value="1"></label>
+              <label>工作区域<input name="displayLocation" required placeholder="雁峰区"></label>
+              <label>工作地点<input name="location" required placeholder="详细地址"></label>
+              <label>联系人<input name="contact" required placeholder="联系人"></label>
+              <label>联系电话<input name="phone" required maxlength="11" placeholder="手机号"></label>
+              <label>工作时间<input name="workTime" placeholder="9:00-18:00"></label>
+              <label>发布单位<input name="company" placeholder="公司或门店名称"></label>
+            </div>
+            <label class="full-label">职位描述<textarea name="description" rows="5" placeholder="岗位职责、要求、福利待遇"></textarea></label>
+            <div class="modal-actions">
+              <button type="button" class="ghost-btn" id="resetPublishBtn">清空</button>
+              <button type="submit" class="primary-btn" id="publishBtn">立即发布</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="view" id="reviews">
+        <div class="section-tip">审核通过后，小程序端岗位列表接口会返回该岗位；驳回后保留原因，便于发布方修改后重新提交。</div>
+        <div id="reviewList" class="review-grid"></div>
+      </section>
+
+      <section class="view" id="convenience">
+        <div class="toolbar">
+          <input id="convenienceSearch" class="search-input" placeholder="搜索内容、联系人、电话、地址">
+          <select id="convenienceStatusFilter" aria-label="便民信息状态筛选">
+            <option value="all">全部状态</option>
+            <option value="published">已发布</option>
+            <option value="offline">已下架</option>
+          </select>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>内容摘要</th>
+                <th>分类/区域</th>
+                <th>联系人/电话</th>
+                <th>举报</th>
+                <th>发布时间</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="convenienceTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="users">
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>用户</th>
+                <th>手机号</th>
+                <th>最近登录</th>
+                <th>收藏</th>
+                <th>投递</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="usersTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="applications">
+        <div class="toolbar">
+          <input id="applicationSearch" class="search-input" placeholder="搜索用户、手机号、岗位">
+          <select id="applicationStatusFilter" aria-label="投递状态筛选">
+            <option value="all">全部状态</option>
+            <option value="new">新投递</option>
+            <option value="contacted">已联系</option>
+            <option value="hired">已录用</option>
+            <option value="closed">已关闭</option>
+          </select>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>求职者</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>岗位</th>
+                <th>联系方式</th>
+                <th>状态</th>
+                <th>投递时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="applicationsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="messages">
+        <div class="message-layout">
+          <aside class="thread-panel">
+            <div class="panel-head">
+              <h2>用户会话</h2>
+              <button class="link-btn" id="refreshMessagesBtn" type="button">刷新</button>
+            </div>
+            <div id="messageThreadList" class="thread-list"></div>
+          </aside>
+          <section class="chat-panel">
+            <div class="chat-head">
+              <div>
+                <h2 id="activeThreadName">请选择会话</h2>
+                <p id="activeThreadMeta">用户在小程序消息页发送咨询后，会出现在这里。</p>
+              </div>
+            </div>
+            <div id="adminChatMessages" class="admin-chat-messages"></div>
+            <form id="adminReplyForm" class="reply-form">
+              <textarea id="adminReplyInput" rows="3" placeholder="回复用户，可推荐合适岗位、询问区域和上岗时间"></textarea>
+              <button class="primary-btn" type="submit">发送回复</button>
+            </form>
+          </section>
+          <aside class="system-panel">
+            <h2>系统通知</h2>
+            <p>发布后，小程序消息页的“系统通知”区域可接收。</p>
+            <form id="systemNoticeForm" class="system-form">
+              <input name="title" required placeholder="通知标题">
+              <textarea name="content" rows="5" required placeholder="通知内容，例如：本周新增日结岗位，可联系客服推荐"></textarea>
+              <input name="openid" placeholder="指定 openid，可留空群发">
+              <button id="sendSystemNoticeBtn" class="primary-btn" type="submit">发布通知</button>
+            </form>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="interfaces">
+        <div class="interface-grid">
+          <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <h3>/api/jobs</h3>
+            <p>小程序端获取已发布岗位列表，支持关键词、分类、薪资、区域和时间筛选。</p>
+          </div>
+          <div class="endpoint-card">
+            <span class="method post">POST</span>
+            <h3>/api/jobs</h3>
+            <p>管理员或企业发布岗位，默认进入待审核状态。</p>
+          </div>
+          <div class="endpoint-card">
+            <span class="method patch">PATCH</span>
+            <h3>/api/admin/jobs/{id}/review</h3>
+            <p>管理员审核岗位，支持通过、驳回和下线。</p>
+          </div>
+          <div class="endpoint-card">
+            <span class="method post">POST</span>
+            <h3>/api/applications</h3>
+            <p>小程序用户投递岗位，后台接收用户信息和岗位信息。</p>
+          </div>
+          <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <h3>/api/admin/users</h3>
+            <p>管理员查看微信登录用户、收藏和投递统计。</p>
+          </div>
+          <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <h3>/api/admin/applications</h3>
+            <p>管理员查看投递记录并更新跟进状态。</p>
+          </div>
+        </div>
+        <pre class="code-block" id="apiExample"></pre>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-mask" id="jobModal" hidden>
+    <form class="modal" id="jobForm">
+      <div class="modal-head">
+        <h2>发布岗位</h2>
+        <button type="button" class="icon-btn" id="closeJobModal">关闭</button>
+      </div>
+      <div class="form-grid">
+        <label>职位名称<input name="title" required placeholder="例如：展会协助"></label>
+        <label>职位类型<select name="category" required></select></label>
+        <label>薪资待遇<input name="salary" required placeholder="180-220元/天"></label>
+        <label>结算方式<select name="salaryType" required></select></label>
+        <label>招聘人数<input name="headcount" type="number" min="1" required value="1"></label>
+        <label>工作区域<input name="displayLocation" required placeholder="雁峰区"></label>
+        <label>工作地点<input name="location" required placeholder="详细地址"></label>
+        <label>联系人<input name="contact" required placeholder="联系人"></label>
+        <label>联系电话<input name="phone" required maxlength="11" placeholder="手机号"></label>
+        <label>工作时间<input name="workTime" placeholder="9:00-18:00"></label>
+        <label>发布单位<input name="company" placeholder="公司或门店名称"></label>
+      </div>
+      <label class="full-label">职位描述<textarea name="description" rows="5" placeholder="岗位职责、要求、福利待遇"></textarea></label>
+      <div class="modal-actions">
+        <button type="button" class="ghost-btn" id="resetFormBtn">清空</button>
+        <button type="submit" class="primary-btn">保存并提交审核</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
