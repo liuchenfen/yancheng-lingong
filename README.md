@@ -53,7 +53,7 @@
 │  └─ server/                Node.js + Express 后端
 │     ├─ server.js           30+ RESTful 接口
 │     └─ .env.example        环境配置示例
-├─ docs/                     文档
+├─ tests/                    管理后台自动化测试
 └─ 运行与部署文档.md         详细的本地运行与云部署指南
 ```
 
